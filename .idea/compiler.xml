@@ -9,12 +9,14 @@
         <module name="product-service" />
         <module name="order-service" />
         <module name="eureka-service" />
+        <module name="import-test" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-service" options="-parameters" />
+      <module name="import-test" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="springcloud-demo" options="-parameters" />

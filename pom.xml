@@ -12,6 +12,7 @@
         <module>product-service</module>
         <module>order-service</module>
         <module>eureka-service</module>
+        <module>import-test</module>
     </modules>
 
     <parent>
