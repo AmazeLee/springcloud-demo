@@ -1,6 +1,7 @@
 package com.sh.order.controller;
 
 import com.sh.order.entity.Product;
+import com.sh.order.feign.ProductFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,35 +10,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 
-	//注入restTemplate对象
+	/*//注入restTemplate对象
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestTemplate restTemplate;*/
+
+	@Autowired
+	private ProductFeignClient productFeignClient;
+
+	/**
+	 */
+	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
+	public Product findById(@PathVariable Long id) {
+		Product product = null;
+		product = productFeignClient.findById(id);
+		return product;
+	}
 
 	/**
 	 * 注入DiscoveryClient :
 	 *  springcloud提供的获取原数组的工具类
 	 *      调用方法获取服务的元数据信息
 	 *
-	 */
+	 *//*
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
 
-	/**
-	 * 基于ribbon的形式调用远程微服务
+	*//**
+	 * TODO 基于ribbon的形式调用远程微服务
 	 *  1.使用@LoadBalanced声明RestTemplate
 	 *  2.使用服务名称替换ip地址
-	 */
+	 *//*
 	@RequestMapping(value = "/buy/{id}",method = RequestMethod.GET)
 	public Product findById(@PathVariable Long id) {
 		Product product = null;
 		product = restTemplate.getForObject("http://service-product/product/1",Product.class);
 		return product;
-	}
+	}*/
 
 	/**
 	 * 参数:商品id
